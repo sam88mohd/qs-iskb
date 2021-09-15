@@ -71,10 +71,15 @@ export default function Home({ sheets }) {
           <Table
             data={data}
             columns={columns}
-            getCellProps={(cell) => ({ onClick: () => handleClick(cell) })}
+            getCellProps={(cell) => ({
+              onClick: () => handleClick(cell),
+              style: {
+                cursor: cell.column.Header === "Name" ? "pointer" : "auto",
+              },
+            })}
             getRowProp={(row) => ({
               style: {
-                background: row.values.health === "Yes" ? "#fa113d" : "#03ac13",
+                color: row.values.health === "Yes" ? "#fa113d" : "#0f292f",
               },
             })}
           />
