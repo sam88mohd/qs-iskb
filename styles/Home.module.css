@@ -17,6 +17,12 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.mainContainer {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #116466;
+}
+
 .bannerImg {
   z-index: -1;
   filter: blur(1px);

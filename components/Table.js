@@ -8,7 +8,13 @@ import {
   useGroupBy,
   useTable,
 } from "react-table";
-import { FaList, FaTimesCircle } from "react-icons/fa";
+import {
+  FaChevronCircleDown,
+  FaChevronCircleRight,
+  FaChevronCircleUp,
+  FaList,
+  FaTimesCircle,
+} from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useMemo } from "react";
 
@@ -81,11 +87,21 @@ const Table = ({ data, columns }) => {
                   ) : null}
                   {column.render("Header")}
                   <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <>
+                          {" "}
+                          <FaChevronCircleDown />{" "}
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <FaChevronCircleUp />{" "}
+                        </>
+                      )
+                    ) : (
+                      ""
+                    )}
                   </span>
                   <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
@@ -100,17 +116,15 @@ const Table = ({ data, columns }) => {
               <tr key={i} {...row.getRowProps()}>
                 {row.cells.map((cell, i) => {
                   return (
-                    <td
-                      key={i}
-                      {...cell.getCellProps()}
-                      style={{
-                        background: cell.isGrouped ? "#0AFF0082" : "white",
-                      }}
-                    >
+                    <td key={i} {...cell.getCellProps()}>
                       {cell.isGrouped ? (
                         <>
                           <span {...row.getToggleRowExpandedProps()}>
-                            {row.isExpanded ? "👇" : "👉"}
+                            {row.isExpanded ? (
+                              <FaChevronCircleDown />
+                            ) : (
+                              <FaChevronCircleRight />
+                            )}
                           </span>{" "}
                           {cell.render("Cell")} ({row.subRows.length})
                         </>

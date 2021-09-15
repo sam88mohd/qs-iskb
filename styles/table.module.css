@@ -1,5 +1,6 @@
 .tableContainer {
-  margin: 2em;
+  max-width: 90vw;
+  margin: 2em auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

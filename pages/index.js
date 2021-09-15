@@ -60,7 +60,9 @@ export default function Home({ sheets }) {
 
       <main className={styles.main}>
         <Hero sheets={sheets} />
-        <Table data={data} columns={columns} />
+        <section className={styles.mainContainer}>
+          <Table data={data} columns={columns} />
+        </section>
       </main>
     </div>
   );
