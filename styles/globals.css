@@ -15,3 +15,27 @@ a {
 * {
   box-sizing: border-box;
 }
+
+table {
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  border-bottom: 1px solid gray;
+}
+
+td {
+  padding-left: 20px;
+}
+
+td:last-child {
+  border-right: 0;
+}
+
+th {
+  background-color: #17252a;
+  color: white;
+  font-weight: bold;
+}

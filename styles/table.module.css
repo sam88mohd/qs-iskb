@@ -1,0 +1,26 @@
+.tableContainer {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #feffffff;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.pageDiv {
+  padding: 1em;
+  width: 100%;
+}
+
+.pageBtn {
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageIndicator {
+  text-align: center;
+}
