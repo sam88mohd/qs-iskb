@@ -1,9 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useMemo } from "react";
-import { useFilters, usePagination, useTable } from "react-table";
+import {
+  useExpanded,
+  useFilters,
+  usePagination,
+  useSortBy,
+  useGroupBy,
+  useTable,
+} from "react-table";
 import styles from "../styles/Home.module.css";
 import { getSheetList } from "./api/sheet";
+import { FaList, FaTimesCircle } from "react-icons/fa";
+import { IconContext } from "react-icons/lib";
 
 export const getStaticProps = async () => {
   const data = await getSheetList();
@@ -16,7 +25,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export const dateFilter = ({
+const dateFilter = ({
   column: { filterValue, preFilteredRows, setFilter },
 }) => {
   const count = preFilteredRows.length;
@@ -37,18 +46,22 @@ export default function Home({ sheets }) {
       {
         Header: "Date & Time",
         accessor: "timestamp",
+        disableSortBy: true,
       },
       {
         Header: "Room No.",
         accessor: "roomNumber",
+        sortType: "alphanumeric",
       },
       {
         Header: "Name",
         accessor: "fullName",
+        disableSortBy: true,
       },
       {
         Header: "Health Issue",
         accessor: "health",
+        disableSortBy: true,
       },
     ],
     []
@@ -69,7 +82,7 @@ export default function Home({ sheets }) {
     getRowProps,
     page,
     pageOptions,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, groupBy, expanded },
     previousPage,
     nextPage,
     canPreviousPage,
@@ -77,6 +90,9 @@ export default function Home({ sheets }) {
   } = useTable(
     { columns, data, defaultColumn, initialState: { pageSize: 20 } },
     useFilters,
+    useGroupBy,
+    useSortBy,
+    useExpanded,
     usePagination
   );
 
@@ -90,7 +106,7 @@ export default function Home({ sheets }) {
         />
         <meta charSet="utf-8" />
         <meta name="author" content="IT ibis styles kota bharu" />
-        <meta lang="en"/>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/ibis.png" />
       </Head>
 
@@ -120,8 +136,35 @@ export default function Home({ sheets }) {
               {headerGroups.map((headerGroup, index) => (
                 <tr key={index} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column, index) => (
-                    <th key={index} {...column.getHeaderProps()}>
+                    <th
+                      key={index}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.canGroupBy ? (
+                        <span {...column.getGroupByToggleProps()}>
+                          {column.isGrouped ? (
+                            <>
+                              <IconContext.Provider value={{ size: 12 }}>
+                                <FaTimesCircle /> {"  "}
+                              </IconContext.Provider>
+                            </>
+                          ) : (
+                            <>
+                              <IconContext.Provider value={{ size: 12 }}>
+                                <FaList /> {"  "}
+                              </IconContext.Provider>
+                            </>
+                          )}
+                        </span>
+                      ) : null}
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
                       <div>
                         {column.canFilter ? column.render("Filter") : null}
                       </div>
@@ -135,49 +178,58 @@ export default function Home({ sheets }) {
                 prepareRow(row);
                 return (
                   <tr key={i} {...row.getRowProps()}>
-                    {row.cells.map((cell, i) => (
-                      <td key={i} {...cell.getCellProps()}>
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
+                    {row.cells.map((cell, i) => {
+                      return (
+                        <td
+                          key={i}
+                          {...cell.getCellProps()}
+                          style={{
+                            background: cell.isGrouped ? "#0AFF0082" : "white",
+                          }}
+                        >
+                          {cell.isGrouped ? (
+                            <>
+                              <span {...row.getToggleRowExpandedProps()}>
+                                {row.isExpanded ? "👇" : "👉"}
+                              </span>{" "}
+                              {cell.render("Cell")} ({row.subRows.length})
+                            </>
+                          ) : (
+                            cell.render("Cell")
+                          )}
+                        </td>
+                      );
+                    })}
                   </tr>
                 );
               })}
             </tbody>
-            <tfoot>
-              <div className={styles.pageDiv}>
-                <div className={styles.pageBtn}>
-                  <button
-                    onClick={() => previousPage()}
-                    disabled={!canPreviousPage}
-                  >
-                    Previous Page
-                  </button>
-                  <button onClick={() => nextPage()} disabled={!canNextPage}>
-                    Next Page
-                  </button>
-                </div>
-                <div className={styles.pageIndicator}>
-                  Page{" "}
-                  <em>
-                    {pageIndex + 1} of {pageOptions.length}
-                  </em>
-                </div>
-              </div>
-            </tfoot>
           </table>
+          <div className={styles.pageDiv}>
+            <div className={styles.pageBtn}>
+              <button
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+              >
+                Previous Page
+              </button>
+              <button onClick={() => nextPage()} disabled={!canNextPage}>
+                Next Page
+              </button>
+            </div>
+            <div className={styles.pageIndicator}>
+              Page{" "}
+              <em>
+                {pageIndex + 1} of {pageOptions.length}
+              </em>
+            </div>
+          </div>
         </div>
       </main>
 
       <style jsx>{`
         table {
           border-spacing: 0;
-          width: 90vw;
-        }
-
-        tfoot {
-          text-align: center;
-          margin: auto;
         }
 
         th,

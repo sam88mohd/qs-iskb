@@ -7,22 +7,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  
 }
 
 .hero {
   position: relative;
   color: #eae7dc;
   width: 100vw;
-  min-height: 50vh;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  min-height: 40vh;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .bannerImg {
   z-index: -1;
-  filter: blur(2px);
-  -webkit-filter: blur(2px);
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 }
 
 .title {
@@ -51,11 +50,12 @@
 .tableContainer {
   margin: 2em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #feffffff;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .pageDiv {
