@@ -15,7 +15,6 @@ import {
   FaList,
   FaTimesCircle,
 } from "react-icons/fa";
-import { IconContext } from "react-icons/lib";
 import { useMemo } from "react";
 
 const dateFilter = ({
@@ -32,7 +31,14 @@ const dateFilter = ({
   );
 };
 
-const Table = ({ data, columns }) => {
+const defaultPropGetter = () => ({});
+
+const Table = ({
+  data,
+  columns,
+  getCellProps = defaultPropGetter,
+  getRowProp = defaultPropGetter,
+}) => {
   const defaultColumn = useMemo(
     () => ({
       Filter: dateFilter,
@@ -113,10 +119,10 @@ const Table = ({ data, columns }) => {
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <tr key={i} {...row.getRowProps()}>
+              <tr key={i} {...row.getRowProps(getRowProp(row))}>
                 {row.cells.map((cell, i) => {
                   return (
-                    <td key={i} {...cell.getCellProps()}>
+                    <td key={i} {...cell.getCellProps([getCellProps(cell)])}>
                       {cell.isGrouped ? (
                         <>
                           <span {...row.getToggleRowExpandedProps()}>

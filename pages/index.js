@@ -16,6 +16,13 @@ export const getStaticProps = async () => {
   };
 };
 
+const handleClick = (cell) => {
+  if (cell.column.Header === "Name") {
+    console.log("hi");
+    cell.style;
+  }
+};
+
 export default function Home({ sheets }) {
   const data = useMemo(() => [...sheets], []);
   const columns = useMemo(
@@ -61,7 +68,16 @@ export default function Home({ sheets }) {
       <main className={styles.main}>
         <Hero sheets={sheets} />
         <section className={styles.mainContainer}>
-          <Table data={data} columns={columns} />
+          <Table
+            data={data}
+            columns={columns}
+            getCellProps={(cell) => ({ onClick: () => handleClick(cell) })}
+            getRowProp={(row) => ({
+              style: {
+                background: row.values.health === "Yes" ? "#fa113d" : "#03ac13",
+              },
+            })}
+          />
         </section>
       </main>
     </div>
