@@ -68,85 +68,89 @@ const Table = ({
     usePagination
   );
   return (
-    <div className={styles.tableContainer}>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup, index) => (
-            <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, index) => (
-                <th
-                  key={index}
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.canGroupBy ? (
-                    <span {...column.getGroupByToggleProps()}>
-                      {column.isGrouped ? (
-                        <>
-                          <FaTimesCircle /> {"  "}
-                        </>
+    <section className={styles.tableContainer}>
+      <div className={styles.tableOverlay}>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup, index) => (
+              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, index) => (
+                  <th
+                    key={index}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                  >
+                    {column.canGroupBy ? (
+                      <span {...column.getGroupByToggleProps()}>
+                        {column.isGrouped ? (
+                          <>
+                            <FaTimesCircle /> {"  "}
+                          </>
+                        ) : (
+                          <>
+                            <FaList /> {"  "}
+                          </>
+                        )}
+                      </span>
+                    ) : null}
+                    {column.render("Header")}
+                    <span>
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <>
+                            {" "}
+                            <FaChevronCircleDown />{" "}
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <FaChevronCircleUp />{" "}
+                          </>
+                        )
                       ) : (
-                        <>
-                          <FaList /> {"  "}
-                        </>
+                        ""
                       )}
                     </span>
-                  ) : null}
-                  {column.render("Header")}
-                  <span>
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <>
-                          {" "}
-                          <FaChevronCircleDown />{" "}
-                        </>
-                      ) : (
-                        <>
-                          {" "}
-                          <FaChevronCircleUp />{" "}
-                        </>
-                      )
-                    ) : (
-                      ""
-                    )}
-                  </span>
-                  <div>{column.canFilter ? column.render("Filter") : null}</div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr key={i} {...row.getRowProps(getRowProp(row))}>
-                {row.cells.map((cell, i) => {
-                  return (
-                    <td key={i} {...cell.getCellProps([getCellProps(cell)])}>
-                      {cell.isGrouped ? (
-                        <>
-                          <span {...row.getToggleRowExpandedProps()}>
-                            {row.isExpanded ? (
-                              <FaChevronCircleDown />
-                            ) : (
-                              <FaChevronCircleRight />
-                            )}
-                          </span>{" "}
-                          {cell.render("Cell")} ({row.subRows.length})
-                        </>
-                      ) : (
-                        cell.render("Cell")
-                      )}
-                    </td>
-                  );
-                })}
+                    <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className={styles.pageDiv}>
-        <div className={styles.pageBtn}>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr key={i} {...row.getRowProps(getRowProp(row))}>
+                  {row.cells.map((cell, i) => {
+                    return (
+                      <td key={i} {...cell.getCellProps([getCellProps(cell)])}>
+                        {cell.isGrouped ? (
+                          <>
+                            <span {...row.getToggleRowExpandedProps()}>
+                              {row.isExpanded ? (
+                                <FaChevronCircleDown />
+                              ) : (
+                                <FaChevronCircleRight />
+                              )}
+                            </span>{" "}
+                            {cell.render("Cell")} ({row.subRows.length})
+                          </>
+                        ) : (
+                          cell.render("Cell")
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className={styles.pageContainer}>
+        <div className={styles.pageBtnContainer}>
           <button onClick={() => previousPage()} disabled={!canPreviousPage}>
             Previous Page
           </button>
@@ -154,14 +158,14 @@ const Table = ({
             Next Page
           </button>
         </div>
-        <div className={styles.pageIndicator}>
+        <div className={styles.pageIndicatorContainer}>
           Page{" "}
           <em>
             {pageIndex + 1} of {pageOptions.length}
           </em>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

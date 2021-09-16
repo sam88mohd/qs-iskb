@@ -1,27 +1,55 @@
 .tableContainer {
-  max-width: 90vw;
-  margin: 2em auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #feffffff;
-  border-radius: 5px;
-  overflow: auto;
+  padding: 2em 0;
+  width: 90vw;
+  margin: auto;
 }
 
-.pageDiv {
+.pageContainer {
+  margin: auto;
   padding: 1em;
-  width: 100%;
+  width: 50vw;
+  text-align: center;
 }
 
-.pageBtn {
+.pageBtnContainer {
   margin: 0.5em 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
-.pageIndicator {
+.pageBtnContainer button {
+  padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  border: none;
+  border-radius: 3px;
+  position: relative;
+  font-weight: 600;
+  background-color: #2ac069;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.pageBtnContainer button:hover {
+  background-color: #2ecc71;
+}
+
+.pageBtnContainer button:disabled {
+  cursor: default;
+  background-color: #dddddd;
+}
+
+.pageIndicatorContainer {
   text-align: center;
+  font-size: 15px;
+  font-weight: 300;
+  font-style: oblique;
+  color: white;
+}
+
+@media (max-width: 950px) {
+  .tableOverlay {
+    overflow: scroll;
+  }
 }

@@ -1,63 +1,71 @@
 .container {
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .main {
+  min-height: 100vh;
+  background-color: #116466;
+}
+
+.hero {
+  position: relative;
+  color: #eae7dc;
+  min-height: 40vh;
+  height: 40vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.bannerImg {
+  position: absolute;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.heroContainer {
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  height: 100%;
+}
+
+.heroText {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.hero {
-  position: relative;
-  color: #eae7dc;
-  width: 100vw;
-  min-height: 40vh;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.mainContainer {
-  width: 100vw;
-  min-height: 100vh;
-  background-color: #116466;
-}
-
-.bannerImg {
-  z-index: -1;
-  filter: blur(1px);
-  -webkit-filter: blur(1px);
-}
-
 .title {
-  padding: 1em;
-  margin: 0;
   line-height: 1.15;
   font-size: 3rem;
   text-align: center;
+  text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .totalCard {
-  margin: 1em 2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cardContent {
-  width: 15vw;
-  border: 1px solid gold;
+  border: 2px solid gold;
   text-align: center;
   font-size: 1em;
   font-weight: bolder;
+  padding: 0.5em 2em;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 950px) {
   .title {
     font-size: 2em;
   }
 
-  .cardContent {
-    width: 30vw;
+  .hero {
+    min-height: 35vh;
+    height: 35vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 30vh;
+    height: 30vh;
   }
 }

@@ -11,12 +11,12 @@ const Hero = ({ sheets }) => {
         layout="fill"
         alt="banner"
       />
-      <h1 className={styles.title}>
-        QS Daily Response - Ibis Styles Kota Bharu
-      </h1>
-      <div className={styles.heroGrid}>
-        <div className={styles.totalCard}>
-          <div className={styles.cardContent}>
+      <div className={styles.heroContainer}>
+        <div className={styles.heroText}>
+          <h1 className={styles.title}>
+            QS Daily Response - Ibis Styles Kota Bharu
+          </h1>
+          <div className={styles.totalCard}>
             <h3>Total</h3>
             <p>{sheets.length}</p>
           </div>

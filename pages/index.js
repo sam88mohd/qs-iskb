@@ -1,9 +1,10 @@
 import Head from "next/head";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { getSheetList } from "./api/sheet";
 import Hero from "../components/Hero";
 import Table from "../components/Table";
+import Modal from "../components/Modal";
 
 export const getStaticProps = async () => {
   const data = await getSheetList();
@@ -16,14 +17,8 @@ export const getStaticProps = async () => {
   };
 };
 
-const handleClick = (cell) => {
-  if (cell.column.Header === "Name") {
-    console.log("hi");
-    cell.style;
-  }
-};
-
 export default function Home({ sheets }) {
+  const [showModal, setShowModal] = useState(false);
   const data = useMemo(() => [...sheets], []);
   const columns = useMemo(
     () => [
@@ -51,6 +46,13 @@ export default function Home({ sheets }) {
     []
   );
 
+  const handleClick = (cell) => {
+    if (cell.column.Header === "Name") {
+      setShowModal(true);
+      console.log("hello");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -67,24 +69,25 @@ export default function Home({ sheets }) {
 
       <main className={styles.main}>
         <Hero sheets={sheets} />
-        <section className={styles.mainContainer}>
-          <Table
-            data={data}
-            columns={columns}
-            getCellProps={(cell) => ({
-              onClick: () => handleClick(cell),
-              style: {
-                cursor: cell.column.Header === "Name" ? "pointer" : "auto",
-              },
-            })}
-            getRowProp={(row) => ({
-              style: {
-                color: row.values.health === "Yes" ? "#fa113d" : "#0f292f",
-              },
-            })}
-          />
-        </section>
+        <Table
+          data={data}
+          columns={columns}
+          getCellProps={(cell) => ({
+            onClick: () => handleClick(cell),
+            style: {
+              cursor: cell.column.Header === "Name" ? "pointer" : "auto",
+            },
+          })}
+          getRowProp={(row) => ({
+            style: {
+              color: row.values.health === "Yes" ? "#fa113d" : "#0f292f",
+            },
+          })}
+        />
       </main>
+      <Modal onClose={() => setShowModal(false)} show={showModal}>
+        Hello!
+      </Modal>
     </div>
   );
 }
