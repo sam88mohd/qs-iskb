@@ -57,15 +57,19 @@
     font-size: 2em;
   }
 
-  .hero {
+  .heroContainer, .hero {
     min-height: 35vh;
     height: 35vh;
   }
 }
 
 @media (max-width: 600px) {
-  .hero {
-    min-height: 30vh;
-    height: 30vh;
+  .hero, .heroContainer {
+    min-height: 45vh;
+    height: 45vh;
+  }
+
+  .totalCard h2 {
+    font-size: 1em;
   }
 }

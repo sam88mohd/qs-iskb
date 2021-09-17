@@ -17,7 +17,7 @@ const Hero = ({ sheets }) => {
             QS Daily Response - Ibis Styles Kota Bharu
           </h1>
           <div className={styles.totalCard}>
-            <h3>Total</h3>
+            <h2>Total</h2>
             <p>{sheets.length}</p>
           </div>
         </div>
