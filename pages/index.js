@@ -6,14 +6,13 @@ import Hero from "../components/Hero";
 import Table from "../components/Table";
 import Modal from "../components/Modal";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
   const data = await getSheetList();
 
   return {
     props: {
       sheets: data.slice(1, data.length),
     },
-    revalidate: 1,
   };
 };
 
@@ -80,7 +79,7 @@ export default function Home({ sheets }) {
           })}
           getRowProp={(row) => ({
             style: {
-              color: row.values.health === "Yes" ? "#fa113d" : "#0f292f",
+              color: row.values.health === "Yes" ? "#cd2026" : "#212121",
             },
           })}
         />
