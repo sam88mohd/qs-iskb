@@ -23,7 +23,7 @@ export const getSheetList = async () => {
         fullName: row[1],
         roomNumber: row[2],
         health: row[3],
-        description: row[4] || null,
+        details: row[4] || null,
       }));
     }
   } catch (err) {

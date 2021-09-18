@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 import { useMemo } from "react";
 
-const dateFilter = ({
+const columnFilter = ({
   column: { filterValue, preFilteredRows, setFilter },
 }) => {
   const count = preFilteredRows.length;
@@ -33,15 +33,10 @@ const dateFilter = ({
 
 const defaultPropGetter = () => ({});
 
-const Table = ({
-  data,
-  columns,
-  getCellProps = defaultPropGetter,
-  getRowProp = defaultPropGetter,
-}) => {
+const Table = ({ data, columns, getRowProp = defaultPropGetter }) => {
   const defaultColumn = useMemo(
     () => ({
-      Filter: dateFilter,
+      Filter: columnFilter,
     }),
     []
   );
@@ -60,7 +55,12 @@ const Table = ({
     canPreviousPage,
     canNextPage,
   } = useTable(
-    { columns, data, defaultColumn, initialState: { pageSize: 20 } },
+    {
+      columns,
+      data,
+      defaultColumn,
+      initialState: { pageSize: 20 },
+    },
     useFilters,
     useGroupBy,
     useSortBy,
@@ -125,7 +125,7 @@ const Table = ({
                 <tr key={i} {...row.getRowProps(getRowProp(row))}>
                   {row.cells.map((cell, i) => {
                     return (
-                      <td key={i} {...cell.getCellProps([getCellProps(cell)])}>
+                      <td key={i} {...cell.getCellProps()}>
                         {cell.isGrouped ? (
                           <>
                             <span {...row.getToggleRowExpandedProps()}>

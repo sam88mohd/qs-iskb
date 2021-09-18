@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { getSheetList } from "./api/sheet";
 import Hero from "../components/Hero";
@@ -18,39 +18,67 @@ export const getServerSideProps = async (context) => {
 
 export default function Home({ sheets }) {
   const [showModal, setShowModal] = useState(false);
-  const data = useMemo(() => [...sheets], []);
+  const [rowData, setRowData] = useState({});
+  const sheetsDesc = sheets
+    .map((sheet, index) => ({ ...sheet, id: index }))
+    .sort((a, b) => b.id - a.id);
+  const data = useMemo(() => [...sheetsDesc], []);
   const columns = useMemo(
     () => [
       {
         Header: "Date & Time",
         accessor: "timestamp",
         disableSortBy: true,
+        paginateExpandedRows: true,
       },
       {
         Header: "Room No.",
         accessor: "roomNumber",
         sortType: "alphanumeric",
+        paginateExpandedRows: true,
       },
       {
         Header: "Name",
         accessor: "fullName",
         disableSortBy: true,
+        paginateExpandedRows: true,
       },
       {
         Header: "Health Issue",
         accessor: "health",
         disableSortBy: true,
+        paginateExpandedRows: true,
+      },
+      {
+        Header: "Action",
+        Cell: function modelBtn({ row }) {
+          if (!row.isGrouped) {
+            return (
+              <button onClick={(e) => handleButtonClick(e, row)}>
+                More Details...
+              </button>
+            );
+          } else {
+            return null;
+          }
+        },
       },
     ],
     []
   );
 
-  const handleClick = (cell) => {
-    if (cell.column.Header === "Name") {
-      setShowModal(true);
-      console.log("hello");
-    }
+  const handleButtonClick = (e, row) => {
+    setShowModal(true);
+    setRowData(row);
   };
+
+  const guestDetails = sheets.filter(
+    (sheet) =>
+      (sheet.roomNumber === rowData?.values?.roomNumber &&
+        sheet.fullName === rowData?.values?.fullName) ||
+      sheet.roomNumber === rowData?.values?.roomNumber ||
+      sheet.fullName === rowData?.values?.fullName
+  );
 
   return (
     <div className={styles.container}>
@@ -71,22 +99,19 @@ export default function Home({ sheets }) {
         <Table
           data={data}
           columns={columns}
-          getCellProps={(cell) => ({
-            onClick: () => handleClick(cell),
-            style: {
-              cursor: cell.column.Header === "Name" ? "pointer" : "auto",
-            },
-          })}
           getRowProp={(row) => ({
             style: {
-              color: row.values.health === "Yes" ? "#cd2026" : "#212121",
+              color: row.values.health === "Yes" ? "#cd2026" : "#404040",
             },
           })}
         />
       </main>
-      <Modal onClose={() => setShowModal(false)} show={showModal}>
-        Hello!
-      </Modal>
+      <Modal
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        title="Guest Summary"
+        guestDetails={guestDetails}
+      />
     </div>
   );
 }

@@ -9,11 +9,7 @@ body {
 body {
   height: 100vh;
   width: 100vw;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  color: #404040;
 }
 
 * {
@@ -28,7 +24,6 @@ table {
   font-size: 0.9em;
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  color: gray;
 }
 
 thead {
