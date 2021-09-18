@@ -4,7 +4,7 @@ import styles from "../styles/modalContent.module.css";
 const ModalContent = ({ sheet, index }) => {
   const { timestamp, details, health } = sheet;
   return (
-    <div className={styles.content}>
+    <div className={health === "Yes" ? styles.alertContent : styles.content}>
       <p>
         <strong>#: {index + 1}</strong>
       </p>
