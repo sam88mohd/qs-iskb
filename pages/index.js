@@ -1,10 +1,12 @@
 import Head from "next/head";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { getSheetList } from "./api/sheet";
 import Hero from "../components/Hero";
 import Table from "../components/Table";
 import Modal from "../components/Modal";
+import Footer from "../components/Footer";
+import TodayReport from "../components/TodayReport";
 
 export const getServerSideProps = async (context) => {
   const data = await getSheetList();
@@ -18,6 +20,7 @@ export const getServerSideProps = async (context) => {
 
 export default function Home({ sheets }) {
   const [showModal, setShowModal] = useState(false);
+  const [today, setToday] = useState(new Date());
   const [rowData, setRowData] = useState({});
   const sheetsDesc = sheets
     .map((sheet, index) => ({ ...sheet, id: index }))
@@ -72,6 +75,20 @@ export default function Home({ sheets }) {
     setRowData(row);
   };
 
+  const todayFormat =
+    ("0" + today.getDate()).slice(-2) +
+    "/" +
+    ("0" + (today.getMonth() + 1)).slice(-2) +
+    "/" +
+    today.getFullYear();
+
+  const todayGuest = sheets.filter(
+    (sheet) => sheet.timestamp.slice(0, 10) === todayFormat
+  );
+
+  const todayYes = todayGuest.filter((sheet) => sheet.health === "Yes");
+  const todayNo = todayGuest.filter((sheet) => sheet.health === "No");
+
   const guestDetails = sheets.filter(
     (sheet) =>
       (sheet.roomNumber === rowData?.values?.roomNumber &&
@@ -96,16 +113,25 @@ export default function Home({ sheets }) {
 
       <main className={styles.main}>
         <Hero sheets={sheets} />
-        <Table
-          data={data}
-          columns={columns}
-          getRowProp={(row) => ({
-            style: {
-              color: row.values.health === "Yes" ? "#cd2026" : "#404040",
-            },
-          })}
-        />
+        <div className={styles.mainContainer}>
+          <TodayReport
+            today={todayFormat}
+            todayGuest={todayGuest}
+            todayYes={todayYes}
+            todayNo={todayNo}
+          />
+          <Table
+            data={data}
+            columns={columns}
+            getRowProp={(row) => ({
+              style: {
+                color: row.values.health === "Yes" ? "#cd2026" : "#404040",
+              },
+            })}
+          />
+        </div>
       </main>
+      <Footer />
       <Modal
         onClose={() => setShowModal(false)}
         show={showModal}

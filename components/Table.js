@@ -69,6 +69,7 @@ const Table = ({ data, columns, getRowProp = defaultPropGetter }) => {
   );
   return (
     <section className={styles.tableContainer}>
+      <h3>Guest List</h3>
       <div className={styles.tableOverlay}>
         <table {...getTableProps()}>
           <thead>

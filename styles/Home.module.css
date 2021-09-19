@@ -8,6 +8,14 @@
   background-color: #116466;
 }
 
+.mainContainer {
+  padding: 2em 0;
+  margin: auto;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .hero {
   position: relative;
   color: #eae7dc;
@@ -57,14 +65,16 @@
     font-size: 2em;
   }
 
-  .heroContainer, .hero {
+  .heroContainer,
+  .hero {
     min-height: 35vh;
     height: 35vh;
   }
 }
 
 @media (max-width: 600px) {
-  .hero, .heroContainer {
+  .hero,
+  .heroContainer {
     min-height: 45vh;
     height: 45vh;
   }

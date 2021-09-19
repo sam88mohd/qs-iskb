@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.reportCardContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1em;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todayCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.todayCard p {
+  font-size: 3em;
+  font-weight: 700;
+  color: green;
+}
+
+@media (max-width: 600px) {
+  .reportCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}
