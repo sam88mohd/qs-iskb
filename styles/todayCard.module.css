@@ -1,6 +1,6 @@
 .container {
   background-color: #ffffff;
-  width: 600px;
+  width: 550px;
   height: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: 0.3s;
@@ -17,15 +17,13 @@
 }
 
 @media (max-width: 950px) {
-  .content p {
-    font-size: 2em;
-  }
-}
-
-@media (max-width: 600px) {
   .container {
     width: 100%;
     height: 100%;
     margin: auto;
+  }
+
+  .content p {
+    font-size: 2em;
   }
 }
