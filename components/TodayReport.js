@@ -86,7 +86,7 @@ const TodayReport = ({
               chartArea: {
                 width: "100%",
                 height: "80%",
-                left: 10,
+                left: 40,
               },
               slices: [
                 {
@@ -113,7 +113,7 @@ const TodayReport = ({
         </div>
       </div>
       <div className={styles.yesHealthContainer}>
-        <h3>Today&apos;s Guest With Health Issue</h3>
+        <h3>Today&apos;s Reported Issue</h3>
         <Table
           data={todayYes}
           columns={columns}
