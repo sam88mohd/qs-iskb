@@ -55,7 +55,7 @@ const TodayReport = ({ today, todayGuest, todayYes, todayNo, columns }) => {
         </div>
       </div>
       <div className={styles.yesHealthContainer}>
-        <h3>Guest With Health Issue</h3>
+        <h3>Today&apos;s Guest With Health Issue</h3>
         <Table
           data={todayYes}
           columns={columns}
