@@ -1,18 +1,23 @@
 .container {
   display: flex;
   flex-direction: column;
+  padding: 1em 0;
+  width: 90vw;
 }
 
 .reportCardContainer {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1em;
 }
 
 .chartContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.chartContainer:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
 }
 
 .todayCard {
@@ -27,10 +32,18 @@
   color: green;
 }
 
+@media (max-width: 900px) {
+  .reportCardContainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+}
+
 @media (max-width: 600px) {
   .reportCardContainer {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    margin: 0;
   }
 }

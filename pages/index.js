@@ -119,7 +119,9 @@ export default function Home({ sheets }) {
             todayGuest={todayGuest}
             todayYes={todayYes}
             todayNo={todayNo}
+            columns={columns}
           />
+          <h3>Guest List</h3>
           <Table
             data={data}
             columns={columns}
