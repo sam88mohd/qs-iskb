@@ -28,7 +28,7 @@ const TodayReport = ({ today, todayGuest, todayYes, todayNo, columns }) => {
               chartArea: {
                 width: "100%",
                 height: "80%",
-                left: 120,
+                left: 10,
               },
               slices: [
                 {
