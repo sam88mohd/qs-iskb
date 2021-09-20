@@ -1,10 +1,68 @@
-import React from "react";
+import React, { useMemo } from "react";
 import TodayCard from "./TodayCard";
 import styles from "../styles/todayReport.module.css";
 import Chart from "react-google-charts";
 import Table from "./Table";
 
-const TodayReport = ({ today, todayGuest, todayYes, todayNo, columns }) => {
+const TodayReport = ({
+  today,
+  todayGuest,
+  todayYes,
+  todayNo,
+  handleButtonClick,
+}) => {
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Date & Time",
+        accessor: "timestamp",
+        disableFilters: true,
+        disableSortBy: true,
+        paginateExpandedRows: true,
+        disableGroupBy: true,
+      },
+      {
+        Header: "Room No.",
+        accessor: "roomNumber",
+        sortType: "alphanumeric",
+        paginateExpandedRows: true,
+        disableFilters: true,
+        disableGroupBy: true,
+      },
+      {
+        Header: "Name",
+        accessor: "fullName",
+        disableSortBy: true,
+        paginateExpandedRows: true,
+        disableFilters: true,
+        disableGroupBy: true,
+      },
+      {
+        Header: "Health Issue",
+        accessor: "health",
+        disableSortBy: true,
+        paginateExpandedRows: true,
+        disableFilters: true,
+        disableGroupBy: true,
+      },
+      {
+        Header: "Action",
+        Cell: function modelBtn({ row }) {
+          if (!row.isGrouped) {
+            return (
+              <button onClick={(e) => handleButtonClick(e, row)}>
+                More Details...
+              </button>
+            );
+          } else {
+            return null;
+          }
+        },
+      },
+    ],
+    []
+  );
+
   return (
     <section className={styles.container}>
       <h3>Today&apos;s Report</h3>

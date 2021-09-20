@@ -120,6 +120,7 @@ export default function Home({ sheets }) {
             todayYes={todayYes}
             todayNo={todayNo}
             columns={columns}
+            handleButtonClick={handleButtonClick}
           />
           <h3>Guest List</h3>
           <Table
