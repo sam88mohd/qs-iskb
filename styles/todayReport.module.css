@@ -8,12 +8,13 @@
 .reportCardContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  /* gap: 1em; */
 }
 
 .chartContainer {
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  width: 600px;
 }
 
 .chartContainer:hover {
@@ -45,5 +46,9 @@
     display: flex;
     flex-direction: column;
     margin: 0;
+  }
+
+  .chartContainer {
+    width: auto;
   }
 }
