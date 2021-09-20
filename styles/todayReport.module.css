@@ -8,7 +8,8 @@
 .reportCardContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* gap: 1em; */
+  gap: 1em;
+  margin: auto;
 }
 
 .chartContainer {
