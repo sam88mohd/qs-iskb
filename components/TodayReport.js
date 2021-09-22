@@ -121,15 +121,19 @@ const TodayReport = ({
       </div>
       <div className={styles.yesHealthContainer}>
         <h3>Today&apos;s Reported Issue</h3>
-        <Table
-          data={todayYes}
-          columns={columns}
-          getRowProp={(row) => ({
-            style: {
-              color: "#cd2026",
-            },
-          })}
-        />
+        {todayYes.length === 0 ? (
+          <div className={styles.goodHealth}>All guest in good conditions.</div>
+        ) : (
+          <Table
+            data={todayYes}
+            columns={columns}
+            getRowProp={(row) => ({
+              style: {
+                color: "#cd2026",
+              },
+            })}
+          />
+        )}
       </div>
     </section>
   );

@@ -21,8 +21,17 @@
   padding: auto;
 }
 
-.chartContainer:hover {
+.chartContainer:hover,
+.goodHealth:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.goodHealth {
+  background-color: #ffffff;
+  padding: 1em;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  font-weight: 700;
 }
 
 .todayCard {
