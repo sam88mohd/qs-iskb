@@ -11,6 +11,7 @@
   margin: auto;
   border: thin solid gold;
   padding: 10px;
+  gap: 10px;
 }
 
 .chartContainer {
