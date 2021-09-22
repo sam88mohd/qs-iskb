@@ -84,9 +84,8 @@ const TodayReport = ({
             options={{
               title: "Today Total Health Issue",
               chartArea: {
-                width: "100%",
+                width: "90%",
                 height: "80%",
-                left: 40,
               },
               slices: [
                 {
@@ -103,6 +102,14 @@ const TodayReport = ({
                   color: "#007fad",
                 },
               ],
+              legend: {
+                position: "labeled",
+                alignment: "center",
+                textStyle: {
+                  color: "233238",
+                  fontSize: 20,
+                },
+              },
             }}
             data={[
               ["Health", "count"],
