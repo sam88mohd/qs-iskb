@@ -91,10 +91,10 @@ export default function Home({ sheets }) {
 
   const guestDetails = sheets.filter(
     (sheet) =>
-      (sheet.roomNumber === rowData?.values?.roomNumber &&
-        sheet.fullName === rowData?.values?.fullName) ||
-      sheet.roomNumber === rowData?.values?.roomNumber ||
-      sheet.fullName === rowData?.values?.fullName
+      sheet.roomNumber === rowData?.values?.roomNumber &&
+      sheet.fullName
+        .toLowerCase()
+        .includes(rowData?.values?.fullName.toLowerCase().slice(0, 3))
   );
 
   return (
